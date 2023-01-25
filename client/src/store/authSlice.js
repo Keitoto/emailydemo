@@ -21,10 +21,16 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 export const authActions = authSlice.actions;
 
-export const fetchUser = () => async (dispatch) => {
-  const { data } = await axios.get('api/current_user');
-  dispatch(authActions.updateUser(data || false));
-};
+export const fetchUser =
+  (data = null) =>
+  async (dispatch) => {
+    if (!data) {
+      const res = await axios.get('/api/current_user');
+      dispatch(authActions.updateUser(res.data || false));
+      return;
+    }
+    dispatch(authActions.updateUser(data || false));
+  };
 
 export const handleToken = (token) => async (dispatch) => {
   const { data } = await axios.post('/api/stripe', token);

@@ -5,9 +5,8 @@ import { fetchUser } from './store/authSlice';
 
 import Header from './components/Header';
 import Landing from './components/Landing';
-
-const DashBoard = () => <h2>DashBoard</h2>;
-const SurveyNew = () => <h2>Surveynew</h2>;
+import Dashboard from './components/Dashboard';
+import SurveyNew from './components/SurveyNew';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,16 +19,14 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div className="container">
-      <BrowserRouter>
-        <div>
-          <Header />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/surveys" component={DashBoard} />
-          <Route path="/surveys/new" component={SurveyNew} />
-        </div>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <div className="container">
+        <Header />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/surveys" component={Dashboard} />
+        <Route path="/surveys/new" component={SurveyNew} />
+      </div>
+    </BrowserRouter>
   );
 };
 
