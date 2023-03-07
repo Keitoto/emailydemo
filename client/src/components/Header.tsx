@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Payments from './Payments';
+import { useAppSelector } from '../store';
 
 const Header = () => {
-  const { isLoggedIn, credits } = useSelector((state) => state.auth);
+  const { isLoggedIn, credits } = useAppSelector((state) => state.auth);
   return (
     <nav>
       <div className="nav-wrapper">
