@@ -1,6 +1,19 @@
-import React from 'react';
+import { FC } from 'react';
+import { FieldType, TField } from '.';
 
-const SurveyFormReview = ({ onCancel, formValue, fields, onSubmit }) => {
+interface Props {
+  onCancel: () => void;
+  formValue: FieldType;
+  fields: TField[];
+  onSubmit: () => Promise<void>;
+}
+
+const SurveyFormReview: FC<Props> = ({
+  onCancel,
+  formValue,
+  fields,
+  onSubmit,
+}) => {
   const reviewFields = fields.map(({ label, name }) => (
     <div key={name}>
       <label>{label}</label>
