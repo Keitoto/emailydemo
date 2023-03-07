@@ -25,6 +25,8 @@
   "devDependencies": {
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/stripe-checkout": "^1.0.4",
     "@vitejs/plugin-react": "^2.2.0",
     "typescript": "^4.9.5",
     "vite": "^3.2.3"
