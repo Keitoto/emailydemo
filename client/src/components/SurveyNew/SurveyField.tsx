@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { ComponentProps, FC } from 'react';
 
-const SurveyField = ({ label, input, meta: { error, touched } }) => {
+interface Props {
+  label: string;
+  input: ComponentProps<'input'>;
+  meta: { error?: boolean; touched?: boolean };
+}
+
+const SurveyField: FC<Props> = ({ label, input, meta: { error, touched } }) => {
   return (
     <div>
       <label>{label}</label>
