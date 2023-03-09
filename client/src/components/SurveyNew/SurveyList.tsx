@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchSurveys } from '../../store/surveysSlice';
+import { useAppSelector } from '../../store';
 
 const SurveyList = () => {
   const dispatch = useDispatch();
@@ -8,11 +9,11 @@ const SurveyList = () => {
   useEffect(() => {
     if (didLogRef.current === false) {
       didLogRef.current = true;
-      dispatch(fetchSurveys());
+      fetchSurveys();
     }
   }, [dispatch]);
 
-  const { surveys } = useSelector((state) => state.surveys);
+  const { surveys } = useAppSelector((state) => state.surveys);
 
   const renderSurveys = () =>
     surveys

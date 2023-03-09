@@ -5,6 +5,7 @@ import SurveyForm from './SurveyForm';
 import SurveyFormReview from './SurveyFormReview';
 import axios from 'axios';
 import { fetchUser } from '../../store/authSlice';
+import { useAppDispatch } from '../../store';
 
 const FIELDS = [
   { label: 'Survey Title', name: 'title' },
@@ -12,20 +13,30 @@ const FIELDS = [
   { label: 'Email Body', name: 'body' },
   { label: 'Recipient List', name: 'recipients' },
 ];
+
+export type FieldNames = 'title' | 'subject' | 'body' | 'recipients';
+
+export type FieldType = {
+  [key in FieldNames]?: string;
+};
+
+export type TField = { label: string; name: string };
+
 const INITIAL_VALUE = Object.assign(
   {},
   ...FIELDS.map((item) => ({ [item.name]: '' }))
-);
+) as FieldType;
 
 const SurveyNew = () => {
   const [showFormReview, setShowFormReview] = useState(false);
   const [formValue, setFormValue] = useState(INITIAL_VALUE);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
-  const handleConfirm = async (values) => {
+  const handleConfirm = async (values: FieldType) => {
     await sleep(400);
     setFormValue(values);
     setShowFormReview(true);
@@ -34,7 +45,7 @@ const SurveyNew = () => {
   const handleSubmit = async () => {
     const res = await axios.post('/api/surveys', formValue);
     // await sleep(1000);
-    dispatch(fetchUser(res.data));
+    fetchUser(res.data);
     history.replace('/surveys');
   };
 

@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Form, Field } from 'react-final-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
+import { TField, FieldNames, FieldType } from './index';
 
-const validate = (values) => {
-  const errors = {};
+type ErrorsType = {
+  [key in FieldNames]?: string;
+};
+
+const validate = (values: ErrorsType) => {
+  const errors = {} as ErrorsType;
   // valid Emails
   errors.recipients = validateEmails(values.recipients || '');
   // Required - not empty
@@ -17,7 +22,13 @@ const validate = (values) => {
   return errors;
 };
 
-const SurveyForm = ({ onConfirm, formValue, fields }) => {
+interface Props {
+  onConfirm: (values: FieldType) => Promise<void>;
+  formValue: FieldType;
+  fields: TField[];
+}
+
+const SurveyForm: FC<Props> = ({ onConfirm, formValue, fields }) => {
   return (
     <div>
       <Form

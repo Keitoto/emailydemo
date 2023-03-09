@@ -3,25 +3,31 @@ import { Form, Field } from 'react-final-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
+import { FieldType } from '.';
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const handleSubmit = async (values) => {
+const handleSubmit = async (values: FieldType) => {
   await sleep(400);
   console.log(values);
 };
 
-const required = (value) => (value ? undefined : 'This field is required.');
-const validEmails = (emails) => {
+const required = (value: string | undefined) =>
+  value ? undefined : 'This field is required.';
+
+const validEmails = (emails: string) => {
   const result = validateEmails(emails);
   return !result ? undefined : result;
 };
 
+type validator = typeof required | typeof validEmails;
+
 const composeValidators =
-  (...validators) =>
-  (value) =>
+  (...validators: validator[]) =>
+  (value: string) =>
     validators.reduce(
-      (error, validator) => error || validator(value),
+      (error: string | undefined, validator: validator) =>
+        error || validator(value),
       undefined
     );
 

@@ -1,10 +1,9 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import { handleToken } from '../store/authSlice';
+import { useAppDispatch } from '../store';
 
 const Payments = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <StripeCheckout
       name="Emaily"

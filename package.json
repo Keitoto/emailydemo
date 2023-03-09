@@ -30,5 +30,8 @@
     "path-parser": "^6.1.0",
     "sendgrid": "^5.2.3",
     "stripe": "^11.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
   }
 }
